@@ -1,0 +1,19 @@
+# Secrets — never commit the real env
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node / frontend build
+node_modules/
+dist/
+
+# OS / editor
+.DS_Store
+
+# NOTE: both database files under data/ (campus_customs.db and
+# campus_customs_new.db) ARE committed on purpose — see README.

@@ -1,0 +1,69 @@
+{
+  "run": {
+    "description": "Full resolve run of the Campus Customs board after resetting data/campus_customs_new.db to original.",
+    "shop_today": "2026-08-31",
+    "starting_checking_balance": 3400.0,
+    "ending_checking_balance": 160.0,
+    "model": "gpt-6-luna",
+    "audit_trail": "output/audit_trail.json"
+  },
+  "tickets": [
+    {
+      "id": 101,
+      "subject": "Bulldog tee (customer order)",
+      "final_status": "resolved",
+      "short_outcome": "Size S was out of stock (0 on hand) and the reprint vendor (Bulldog Print Co) was blocked by an open unpaid invoice #501. The human approved paying invoice #501 ($840), which unblocked the vendor, and approved a 1-unit reprint purchase order (ETA 2026-09-05). Ticket closed.",
+      "agents": {
+        "boss": "Read the ticket and routed it to inventory, then made the final call and closed the ticket.",
+        "inventory": "Checked stock (CC-TEE-WHITE/S = 0 vs 1 requested), matched vendor 1 (apparel reprint, 5-day lead), found vendor 1 blocked by open unpaid invoice #501, and delegated to accounting.",
+        "accounting": "Confirmed cash ($3,400), read invoice #501 ($840), checked pricing, and prepared the invoice-#501 payment plus a 1-unit tee restock purchase order for human approval."
+      },
+      "delegations": ["boss -> inventory", "inventory -> accounting"],
+      "mcp_tools_used": [
+        "get_ticket", "check_stock", "list_vendors", "vendor_has_open_invoice",
+        "get_today", "get_cash_balance", "list_invoices", "get_pricing",
+        "prepare_payment", "prepare_purchase_order", "update_ticket_status", "delegate_to"
+      ],
+      "human_approvals": [
+        {"type": "payment", "what": "invoice #501", "amount": 840.0, "approved_by": "Jae"},
+        {"type": "purchase_order", "what": "CC-TEE-WHITE size S x1 restock", "est_total": 8.0, "approved_by": "Jae", "note": "no cash moves until the vendor invoices for this reprint"}
+      ],
+      "cash_change": -840.0
+    },
+    {
+      "id": 102,
+      "subject": "Rent due (rent notice)",
+      "final_status": "resolved",
+      "short_outcome": "Chapel Street shop rent of $2,400 (lease 1) was due 2026-09-02 (two days out). Accounting prepared the rent payment; the human approved it and it was paid from checking. Ticket closed.",
+      "agents": {
+        "boss": "Read the ticket, routed it to facilities, and made the final call.",
+        "facilities": "Read lease 1 (Chapel Street shop, $2,400/mo, due 2026-09-02), judged it due soon vs today, and delegated to accounting to prepare the rent payment.",
+        "accounting": "Confirmed cash and prepared the $2,400 rent payment (affordable; would leave $160) for human approval."
+      },
+      "delegations": ["boss -> facilities", "facilities -> accounting"],
+      "mcp_tools_used": [
+        "get_ticket", "get_lease", "get_today", "get_cash_balance",
+        "prepare_payment", "update_ticket_status", "delegate_to"
+      ],
+      "human_approvals": [
+        {"type": "payment", "what": "rent (lease 1)", "amount": 2400.0, "approved_by": "Jae"}
+      ],
+      "cash_change": -2400.0
+    },
+    {
+      "id": 103,
+      "subject": "Bulk hoodie discount (price override)",
+      "final_status": "resolved",
+      "short_outcome": "Yale AI Club asked for a bulk discount on 20 navy hoodies. Accounting checked the margin (list $58 vs cost $22 = $36 / 62.1% per unit). The ticket did not state a discount amount, so no price was changed or promised; the request was left as a recommendation for a human pricing decision and the ticket was closed. No cash moved.",
+      "agents": {
+        "boss": "Read the ticket, routed it to accounting, and made the final call (awaiting a human pricing decision, then closed).",
+        "accounting": "Checked CC-HOOD-NAVY pricing and reported the $36 (62.1%) per-unit margin; noted the discount amount was unspecified so its impact couldn't be assessed, and that no price-change tool exists — this is a human decision."
+      },
+      "delegations": ["boss -> accounting"],
+      "mcp_tools_used": ["get_ticket", "get_pricing", "update_ticket_status", "delegate_to"],
+      "human_approvals": [],
+      "cash_change": 0.0,
+      "note": "Leaner than the Problem 6 plan (which anticipated inventory for the 12-unit shortfall and a customer-service draft). This run the team resolved it as a pure margin/pricing recommendation with no money movement, so no restock PO or payment was prepared."
+    }
+  ]
+}

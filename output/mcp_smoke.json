@@ -1,0 +1,97 @@
+{
+  "note": "Evidence collected by connecting to the campus-customs MCP server over stdio using the exact command/args in .mcp.json, then calling each tool via the MCP protocol. All outputs come from data/campus_customs_new.db; no values are invented.",
+  "server": "campus-customs",
+  "connection": {
+    "command": "/Users/jaewonoh/Desktop/mgt409/homework5_1014/.venv/bin/python",
+    "args": [
+      "/Users/jaewonoh/Desktop/mgt409/homework5_1014/mcp_server/server.py"
+    ]
+  },
+  "tools_discovered": [
+    "list_open_tickets",
+    "check_stock",
+    "get_pricing"
+  ],
+  "tests": [
+    {
+      "prompt": "Show me every open ticket on the board so I can route them.",
+      "tool_name": "list_open_tickets",
+      "tool_args": {},
+      "tool_output": [
+        {
+          "id": 103,
+          "type": "price_override",
+          "requester": "Yale AI Club",
+          "subject": "Bulk hoodie discount",
+          "sku": "CC-HOOD-NAVY",
+          "size": "M",
+          "qty": 20,
+          "lease_id": null,
+          "invoice_id": null,
+          "status": "open",
+          "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+          "created_at": "2026-08-31T16:55:00-04:00"
+        },
+        {
+          "id": 102,
+          "type": "rent_notice",
+          "requester": "Elm City Properties",
+          "subject": "Rent due",
+          "sku": null,
+          "size": null,
+          "qty": null,
+          "lease_id": 1,
+          "invoice_id": null,
+          "status": "open",
+          "notes": "Email: shop rent due in 2 days.",
+          "created_at": "2026-08-31T11:05:00-04:00"
+        },
+        {
+          "id": 101,
+          "type": "customer_order",
+          "requester": "Tauhid Zaman",
+          "subject": "Bulldog tee",
+          "sku": "CC-TEE-WHITE",
+          "size": "S",
+          "qty": 1,
+          "lease_id": null,
+          "invoice_id": 501,
+          "status": "open",
+          "notes": "Needs a tee in size S.",
+          "created_at": "2026-08-31T09:15:00-04:00"
+        }
+      ]
+    },
+    {
+      "prompt": "How many Classic Bulldog Tees (CC-TEE-WHITE) do we have in size S?",
+      "tool_name": "check_stock",
+      "tool_args": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S"
+      },
+      "tool_output": [
+        {
+          "sku": "CC-TEE-WHITE",
+          "name": "Classic Bulldog Tee",
+          "size": "S",
+          "qty": 0,
+          "location": "Aisle B"
+        }
+      ]
+    },
+    {
+      "prompt": "What's our cost, list price, and margin on the navy hoodie CC-HOOD-NAVY?",
+      "tool_name": "get_pricing",
+      "tool_args": {
+        "sku": "CC-HOOD-NAVY"
+      },
+      "tool_output": {
+        "sku": "CC-HOOD-NAVY",
+        "unit_cost": 22.0,
+        "list_price": 58.0,
+        "margin": 36.0,
+        "margin_pct": 62.1
+      }
+    }
+  ]
+}
