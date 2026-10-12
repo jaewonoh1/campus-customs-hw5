@@ -1,46 +1,5 @@
 # AI Prompt Log
 
-## Setup
-
-Prompt 1:
-
-> work in homework 5 folder.
-
-Prompt 2:
-
-> go ahead and create the folder following other homework structures
-
-Prompt 3:
-
-> this is due wednesday so update folder name for that date
-
-Prompt 4 (project primer — context only, not acted on):
-
-> Homework 5: Campus Customs Multi-Agent Operations.
-> Campus Customs Multi-Agent Operations is the agentic team that runs the shop, whree open tickets land on a board, and 3 pieces (MCP server, FastAPI backend, and React dashboard) so a human can watch the agents and approve requests. The team has full connectivity, an agent can delegate tasks to any other agent. build these agents:
->
-> * boss: reads ticket, decides who should work on it, makes final calls
-> * inventory: checks stock by sku and size, spots shortfalls, figures out which vendor can restock
-> * accounting: watches cash and invoices, checks margins, prepares payments, prepares purchase orders for human approval
-> * facilities: handles shop space side (lease, rent, etc>)
-> * customer service: drafts messages for customers
->
-> rules of this shop:
->
-> * field desk.date_today is "today" for the shop and use for determining what's overdue
-> * Vendor lead times come from vendors table
-> * vendor will not ship new product while they have open unpaid invoice
-> * human approval is required for any payments.
-> * if there is not enough cash, the pay tool must refuse - no negative balances
-> * cash only goes out, no money comes in
-> * before a full run to resolve tickets,make sure to reset the databse to original values.
-> * do not email customers or call real vendors
-> * use PORTKEY_API_KEY for AI calls, only gpt-6-luna allowed for all agents.
->
-> work one problem at a time that i type. these will be recorded in AI_prompts.md. Final submission will be public github repo.
->
-> again, don't act on this prompt. this is an overview. if later prompts contradict this info then flag it
-
 ## Problem 1: Vibe coder prompts
 
 Prompt 1:
