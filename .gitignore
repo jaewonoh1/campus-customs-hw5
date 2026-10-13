@@ -17,3 +17,6 @@ dist/
 
 # NOTE: both database files under data/ (campus_customs.db and
 # campus_customs_new.db) ARE committed on purpose — see README.
+
+# Editor/preview config (machine-specific)
+.claude/
